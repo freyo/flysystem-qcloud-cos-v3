@@ -9,7 +9,6 @@ use Freyo\LaravelQcloudCosV3\Qcloud\Cosapi;
 
 /**
  * Class Adapter
- * @package App\Adapters\Qcloud
  */
 class Adapter extends AbstractAdapter
 {

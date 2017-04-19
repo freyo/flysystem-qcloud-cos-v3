@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use League\Flysystem\Filesystem;
 
+/**
+ * Class ServiceProvider
+ */
 class ServiceProvider extends LaravelServiceProvider
 {
     /**
