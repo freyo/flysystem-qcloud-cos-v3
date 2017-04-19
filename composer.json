@@ -1,0 +1,22 @@
+{
+    "name": "freyo/laravel-cos-v3-adapter",
+    "description": "Tencent Qcloud COS V3 Adapter for Laravel",
+    "keywords": ["cos", "qcloud", "laravel", "adapter"],
+    "require": {
+        "php":">=5.5.0",
+        "guzzlehttp/guzzle": "~6.2.1",
+    },
+    "autoload": {
+        "psr-4": {
+            "Freyo\\LaravelQcloudCosV3\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "minimum-stability" : "dev",
+    "authors": [
+        {
+            "name": "freyo",
+            "email": "freyhsiao@gmail.com"
+        }
+    ]
+}
