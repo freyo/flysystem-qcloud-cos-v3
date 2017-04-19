@@ -7,7 +7,7 @@ Tencent Qcloud COS V3 Adapter for Laravel
 ## 安装
 
   ```shell
-  composer require "freyo/laravel-cos-v3-adapter:dev-master"
+  composer require "freyo/laravel-cos-v3-adapter"
   ```
 
 ## 配置
