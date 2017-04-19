@@ -45,34 +45,34 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root'   => storage_path('app'),
         ],
 
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'driver'     => 'local',
+            'root'       => storage_path('app/public'),
+            'url'        => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_KEY'),
+            'key'    => env('AWS_KEY'),
             'secret' => env('AWS_SECRET'),
             'region' => env('AWS_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
-		
-		'cosv3' => [
-			'driver' => 'cosv3',
-			'protocol' => env('COSV3_PROTOCOL', 'http'),
-			'domain' => env('COSV3_DOMAIN'),
-			'app_id' => env('COSV3_APPID'),
-			'secret_id' => env('COSV3_SECRET_ID'),
-			'secret_key' => env('COSV3_SECRET_KEY'),
-			'timeout' => env('COSV3_PROTOCOL', 60),
-			'bucket' => env('COSV3_BUCKET'),
-		],
+
+        'cosv3' => [
+            'driver'     => 'cosv3',
+            'protocol'   => env('COSV3_PROTOCOL', 'http'),
+            'domain'     => env('COSV3_DOMAIN'),
+            'app_id'     => env('COSV3_APPID'),
+            'secret_id'  => env('COSV3_SECRET_ID'),
+            'secret_key' => env('COSV3_SECRET_KEY'),
+            'timeout'    => env('COSV3_PROTOCOL', 60),
+            'bucket'     => env('COSV3_BUCKET'),
+        ],
 
     ],
 
