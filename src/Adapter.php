@@ -8,10 +8,10 @@ use Freyo\LaravelQcloudCosV3\Qcloud\Conf;
 use Freyo\LaravelQcloudCosV3\Qcloud\Cosapi;
 
 /**
- * Class CosV3Adapter
+ * Class Adapter
  * @package App\Adapters\Qcloud
  */
-class CosV3Adapter extends AbstractAdapter
+class Adapter extends AbstractAdapter
 {
     /**
      * @var
@@ -19,7 +19,7 @@ class CosV3Adapter extends AbstractAdapter
     protected $bucket;
 
     /**
-     * CosAdapter constructor.
+     * Adapter constructor.
      *
      * @param $config
      */
