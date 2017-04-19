@@ -2,13 +2,13 @@
 
 namespace Freyo\LaravelQcloudCosV3;
 
-use League\Flysystem\Adapter\AbstractAdapter;
-use League\Flysystem\Config;
 use Freyo\LaravelQcloudCosV3\Qcloud\Conf;
 use Freyo\LaravelQcloudCosV3\Qcloud\Cosapi;
+use League\Flysystem\Adapter\AbstractAdapter;
+use League\Flysystem\Config;
 
 /**
- * Class Adapter
+ * Class Adapter.
  */
 class Adapter extends AbstractAdapter
 {
@@ -30,7 +30,7 @@ class Adapter extends AbstractAdapter
 
         $this->bucket = $config['bucket'];
 
-        $this->setPathPrefix($config['protocol'] . '://' . $config['domain'] . '/');
+        $this->setPathPrefix($config['protocol'].'://'.$config['domain'].'/');
 
         Cosapi::setTimeout($config['timeout']);
     }
@@ -62,7 +62,7 @@ class Adapter extends AbstractAdapter
      */
     public function write($path, $contents, Config $config)
     {
-        $tmpfname = tempnam("/tmp", "dir");
+        $tmpfname = tempnam('/tmp', 'dir');
         chmod($tmpfname, 0777);
         file_put_contents($tmpfname, $contents);
 
