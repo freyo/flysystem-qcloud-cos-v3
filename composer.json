@@ -3,8 +3,8 @@
     "description": "Tencent Qcloud COS V3 Adapter for Laravel",
     "keywords": ["cos", "qcloud", "laravel", "adapter"],
     "require": {
-        "php":">=5.5.0",
-        "guzzlehttp/guzzle": "~6.2.1",
+        "php": ">=5.5.0",
+        "guzzlehttp/guzzle": "~6.2.1"
     },
     "autoload": {
         "psr-4": {
