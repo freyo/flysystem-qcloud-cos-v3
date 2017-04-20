@@ -62,20 +62,29 @@ class Adapter extends AbstractAdapter
      * @param Config $config
      *
      * @return bool
+     * @throws RuntimeException
      */
     public function write($path, $contents, Config $config)
     {
-        $tmpfname = tempnam('/tmp', 'dir');
-        chmod($tmpfname, 0777);
-        file_put_contents($tmpfname, $contents);
+        $tmpfname = $this->createTempFile($contents);
 
-        $response = $this->normalizeResponse(
-            Cosapi::upload($this->getBucket(), $tmpfname, $path)
-        );
+        try {
+            $response = $this->normalizeResponse(
+                Cosapi::upload($this->getBucket(), $tmpfname, $path)
+            );
 
-        unlink($tmpfname);
+            $this->deleteTempFile($tmpfname);
 
-        $this->setContentType($path, $contents);
+            $this->setContentType($path, $contents);
+        } catch (RuntimeException $exception) {
+            $this->deleteTempFile($tmpfname);
+
+            if ($exception->getCode() == -4018) {
+                return $this->getMetadata($path);
+            }
+
+            throw $exception;
+        }
 
         return $response;
     }
@@ -190,6 +199,8 @@ class Adapter extends AbstractAdapter
     /**
      * @param string $path
      * @param string $visibility
+     *
+     * @return mixed
      */
     public function setVisibility($path, $visibility)
     {
@@ -207,7 +218,13 @@ class Adapter extends AbstractAdapter
      */
     public function has($path)
     {
-        return $this->getMetadata($path) !== false;
+        try {
+            $this->normalizeResponse($this->getMetadata($path));
+        } catch (RuntimeException $exception) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -305,6 +322,8 @@ class Adapter extends AbstractAdapter
 
     /**
      * @param string $path
+     *
+     * @return array
      */
     public function getVisibility($path)
     {
@@ -317,6 +336,30 @@ class Adapter extends AbstractAdapter
         }
 
         return ['visibility' => $visibility];
+    }
+
+    /**
+     * @param $content
+     *
+     * @return bool|string
+     */
+    private function createTempFile($content)
+    {
+        $tmpfname = tempnam('/tmp', 'dir');
+
+        chmod($tmpfname, 0777);
+
+        file_put_contents($tmpfname, $content);
+
+        return $tmpfname;
+    }
+
+    /**
+     * @param $tmpfname
+     */
+    private function deleteTempFile($tmpfname)
+    {
+        unlink($tmpfname);
     }
 
     /**
@@ -346,13 +389,8 @@ class Adapter extends AbstractAdapter
     {
         $response = is_array($response) ? $response : json_decode($response, true);
 
-        if ($response && $response['code'] == 0) {
-            return $response['data'];
-        }
-
-        // ErrSameFileUpload
-        if ($response['code'] == -4018) {
-            return true;
+        if ($response['code'] == 0) {
+            return isset($response['data']) ? $response['data'] : true;
         }
 
         throw new RuntimeException($response['message'], $response['code']);

@@ -2,11 +2,11 @@
 
 namespace Freyo\Flysystem\QcloudCOSv3\Exceptions;
 
-use Exception as BaseException;
+use Freyo\Flysystem\QcloudCOSv3\Exception;
 
 /**
  * Class RuntimeException.
  */
-class RuntimeException extends BaseException
+class RuntimeException extends Exception
 {
 }
