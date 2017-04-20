@@ -1,7 +1,7 @@
 {
-    "name": "freyo/laravel-cos-v3-adapter",
-    "description": "Tencent Qcloud COS V3 Adapter for Laravel",
-    "keywords": ["cos", "qcloud", "laravel", "adapter"],
+    "name": "freyo/flysystem-qcloud-cos-v3",
+    "description": "Flysystem Adapter for Tencent Qcloud COS SDK V3",
+    "keywords": ["flysystem-adapter", "qcloud-sdk", "qcloud", "qcloud-cos"],
     "require": {
         "php": ">=5.5.0",
         "guzzlehttp/guzzle": "~6.2.1"
@@ -12,7 +12,6 @@
         }
     },
     "license": "MIT",
-    "minimum-stability" : "dev",
     "authors": [
         {
             "name": "freyo",
