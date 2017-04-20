@@ -26,14 +26,13 @@ if you are a new registered user(after October,2016), v4 should be used.
   include __DIR__ . '/vendor/autoload.php';
 
   $config = [
-      'driver' => 'cosv3',
-      'protocol' => env('COSV3_PROTOCOL', 'http'),
-      'domain' => env('COSV3_DOMAIN'),
-      'app_id' => env('COSV3_APPID'),
-      'secret_id' => env('COSV3_SECRET_ID'),
-      'secret_key' => env('COSV3_SECRET_KEY'),
-      'timeout' => env('COSV3_PROTOCOL', 60),
-      'bucket' => env('COSV3_BUCKET'),
+      'protocol' => 'http',
+      'domain' => 'your-domain',
+      'app_id' => 'your-appid',
+      'secret_id' => 'your-secret-id',
+      'secret_key' => 'your-secret-key',
+      'timeout' => 60,
+      'bucket' => 'your-bucket-name',
   ];
 
   $adapter = new Adapter($config);
