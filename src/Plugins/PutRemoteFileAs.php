@@ -1,6 +1,6 @@
 <?php
 
-namespace Freyo\LaravelQcloudCosV3\Plugins;
+namespace Freyo\Flysystem\QcloudCOSv3\Plugins;
 
 use League\Flysystem\Plugin\AbstractPlugin;
 

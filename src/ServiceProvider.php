@@ -1,10 +1,10 @@
 <?php
 
-namespace Freyo\LaravelQcloudCosV3;
+namespace Freyo\Flysystem\QcloudCOSv3;
 
-use Freyo\LaravelQcloudCosV3\Plugins\GetUrl;
-use Freyo\LaravelQcloudCosV3\Plugins\PutRemoteFile;
-use Freyo\LaravelQcloudCosV3\Plugins\PutRemoteFileAs;
+use Freyo\Flysystem\QcloudCOSv3\Plugins\GetUrl;
+use Freyo\Flysystem\QcloudCOSv3\Plugins\PutRemoteFile;
+use Freyo\Flysystem\QcloudCOSv3\Plugins\PutRemoteFileAs;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use League\Flysystem\Filesystem;

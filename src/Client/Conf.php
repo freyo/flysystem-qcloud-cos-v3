@@ -1,6 +1,6 @@
 <?php
 
-namespace Freyo\LaravelQcloudCosV3\Qcloud;
+namespace Freyo\Flysystem\QcloudCOSv3\Client;
 
 class Conf
 {

@@ -1,11 +1,14 @@
 <?php
 
-namespace Freyo\LaravelQcloudCosV3;
+namespace Freyo\Flysystem\QcloudCOSv3;
 
-use Freyo\LaravelQcloudCosV3\Qcloud\Conf;
-use Freyo\LaravelQcloudCosV3\Qcloud\Cosapi;
+use Freyo\Flysystem\QcloudCOSv3\Client\Conf;
+use Freyo\Flysystem\QcloudCOSv3\Client\Cosapi;
+use Freyo\Flysystem\QcloudCOSv3\Exceptions\RuntimeException;
 use League\Flysystem\Adapter\AbstractAdapter;
+use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
+use League\Flysystem\Util;
 
 /**
  * Class Adapter.
@@ -30,7 +33,7 @@ class Adapter extends AbstractAdapter
 
         $this->bucket = $config['bucket'];
 
-        $this->setPathPrefix($config['protocol'].'://'.$config['domain'].'/');
+        $this->setPathPrefix($config['protocol'] . '://' . $config['domain'] . '/');
 
         Cosapi::setTimeout($config['timeout']);
     }
@@ -66,11 +69,15 @@ class Adapter extends AbstractAdapter
         chmod($tmpfname, 0777);
         file_put_contents($tmpfname, $contents);
 
-        $response = Cosapi::upload($this->getBucket(), $tmpfname, $path);
+        $response = $this->normalizeResponse(
+            Cosapi::upload($this->getBucket(), $tmpfname, $path)
+        );
 
         unlink($tmpfname);
 
-        return $this->normalizeResponse($response);
+        $this->setContentType($path, $contents);
+
+        return $response;
     }
 
     /**
@@ -84,9 +91,13 @@ class Adapter extends AbstractAdapter
     {
         $uri = stream_get_meta_data($resource)['uri'];
 
-        return $this->normalizeResponse(
+        $response = $this->normalizeResponse(
             Cosapi::upload($this->getBucket(), $uri, $path)
         );
+
+        $this->setContentType($path, stream_get_contents($resource));
+
+        return $response;
     }
 
     /**
@@ -182,7 +193,11 @@ class Adapter extends AbstractAdapter
      */
     public function setVisibility($path, $visibility)
     {
-        // TODO: Implement setVisibility() method.
+        $visibility = $visibility === AdapterInterface::VISIBILITY_PUBLIC ? 'eWPrivateRPublic' : 'eWRPrivate';
+
+        return $this->normalizeResponse(
+            Cosapi::update($this->getBucket(), $path, null, $visibility)
+        );
     }
 
     /**
@@ -293,13 +308,39 @@ class Adapter extends AbstractAdapter
      */
     public function getVisibility($path)
     {
-        // TODO: Implement getVisibility() method.
+        $stat = $this->getMetadata($path);
+
+        $visibility = AdapterInterface::VISIBILITY_PRIVATE;
+
+        if ($stat && $stat['authority'] === 'eWPrivateRPublic') {
+            $visibility = AdapterInterface::VISIBILITY_PUBLIC;
+        }
+
+        return ['visibility' => $visibility];
+    }
+
+    /**
+     * @param $path
+     * @param $content
+     *
+     * @return bool
+     */
+    protected function setContentType($path, $content)
+    {
+        $custom_headers = [
+            'Content-Type' => Util::guessMimeType($path, $content),
+        ];
+
+        return $this->normalizeResponse(
+            Cosapi::update($this->getBucket(), $path, null, null, $custom_headers)
+        );
     }
 
     /**
      * @param $response
      *
-     * @return bool
+     * @return mixed
+     * @throws RuntimeException
      */
     protected function normalizeResponse($response)
     {
@@ -314,6 +355,6 @@ class Adapter extends AbstractAdapter
             return true;
         }
 
-        return false;
+        throw new RuntimeException($response['message'], $response['code']);
     }
 }

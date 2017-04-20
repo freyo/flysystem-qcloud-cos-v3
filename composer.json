@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Freyo\\LaravelQcloudCosV3\\": "src/"
+            "Freyo\\Flysystem\\QcloudCOSv3\\": "src/"
         }
     },
     "license": "MIT",

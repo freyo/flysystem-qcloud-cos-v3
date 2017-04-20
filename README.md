@@ -24,7 +24,7 @@ if you are a new registered user(after October,2016), v4 should be used.
 
   ```php
   <?php
-  use Freyo\LaravelQcloudCosV3\Adapter;
+  use Freyo\Flysystem\QcloudCOSv3\Adapter;
   use League\Flysystem\Filesystem;
 
   include __DIR__ . '/vendor/autoload.php';
@@ -32,7 +32,7 @@ if you are a new registered user(after October,2016), v4 should be used.
   $config = [
       'protocol' => 'http',
       'domain' => 'your-domain',
-      'app_id' => 'your-appid',
+      'app_id' => 'your-app-id',
       'secret_id' => 'your-secret-id',
       'secret_key' => 'your-secret-key',
       'timeout' => 60,
@@ -48,7 +48,7 @@ if you are a new registered user(after October,2016), v4 should be used.
 1. Register `config/app.php`:
 
   ```php
-  Freyo\LaravelQcloudCosV3\ServiceProvider::class,
+  Freyo\Flysystem\QcloudCOSv3\ServiceProvider::class,
   ```
 
 2. Configure `config/filesystems.php`:
@@ -59,7 +59,7 @@ if you are a new registered user(after October,2016), v4 should be used.
           'driver' => 'cosv3',
           'protocol' => env('COSV3_PROTOCOL', 'http'),
           'domain' => env('COSV3_DOMAIN'),
-          'app_id' => env('COSV3_APPID'),
+          'app_id' => env('COSV3_APP_ID'),
           'secret_id' => env('COSV3_SECRET_ID'),
           'secret_key' => env('COSV3_SECRET_KEY'),
           'timeout' => env('COSV3_PROTOCOL', 60),
