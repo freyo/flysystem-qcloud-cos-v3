@@ -1,5 +1,9 @@
 # flysystem-qcloud-cos-v3
 
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Packagist Version](https://img.shields.io/packagist/v/freyo/flysystem-qcloud-cos-v3.svg?style=flat-square)](https://packagist.org/packages/freyo/flysystem-qcloud-cos-v3)
+[![Total Downloads](https://img.shields.io/packagist/dt/freyo/flysystem-qcloud-cos-v3.svg?style=flat-square)](https://packagist.org/packages/freyo/flysystem-qcloud-cos-v3)
+
 This is a Flysystem adapter for the qcloud-cos-sdk-php v3.
 
 腾讯云COS对象存储 V3
@@ -27,12 +31,12 @@ if you are a new registered user(after October,2016), v4 should be used.
 
   $config = [
       'protocol' => 'http',
-      'domain' => 'your-domain',
+      'domain' => 'your-domain',
       'app_id' => 'your-appid',
       'secret_id' => 'your-secret-id',
       'secret_key' => 'your-secret-key',
       'timeout' => 60,
-      'bucket' => 'your-bucket-name',
+      'bucket' => 'your-bucket-name',
   ];
 
   $adapter = new Adapter($config);
