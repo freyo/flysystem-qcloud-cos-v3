@@ -1,4 +1,4 @@
-# laravel-cos-v3-adapter
+# flysystem-qcloud-cos-v3
 
 This is a Flysystem adapter for the qcloud-cos-sdk-php v3.
 
