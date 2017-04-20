@@ -98,9 +98,7 @@ class Adapter extends AbstractAdapter
      */
     public function update($path, $contents, Config $config)
     {
-        return $this->normalizeResponse(
-            $this->write($path, $contents, $config)
-        );
+        return $this->write($path, $contents, $config);
     }
 
     /**
@@ -112,9 +110,7 @@ class Adapter extends AbstractAdapter
      */
     public function updateStream($path, $resource, Config $config)
     {
-        return $this->normalizeResponse(
-            $this->writeStream($path, $resource, $config)
-        );
+        return $this->writeStream($path, $resource, $config);
     }
 
     /**
