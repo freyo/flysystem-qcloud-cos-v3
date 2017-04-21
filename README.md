@@ -10,9 +10,13 @@ This is a Flysystem adapter for the qcloud-cos-sdk-php v3.
 
 ## Attention
 
-if you are a new registered user(after October,2016), v4 should be used.
+if you are a new registered user(after October 2016), [v4](https://packagist.org/packages/freyo/flysystem-qcloud-cos-v4) should be used.
 
-2016年10月以后新注册的用户默认使用V4版本
+2016年10月以后新注册的用户默认使用[V4版本](https://packagist.org/packages/freyo/flysystem-qcloud-cos-v4)
+
+if you have used COS before October 2016, [v3](https://packagist.org/packages/freyo/flysystem-qcloud-cos-v3) can continue to use.
+
+2016年10月之前使用COS的用户可以继续使用[V3版本](https://packagist.org/packages/freyo/flysystem-qcloud-cos-v3)
 
 ## Installation
 
