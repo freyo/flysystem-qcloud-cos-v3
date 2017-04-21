@@ -363,7 +363,7 @@ class Adapter extends AbstractAdapter
      */
     private function deleteTempFile($tmpfname)
     {
-        unlink($tmpfname);
+        return unlink($tmpfname);
     }
 
     /**
