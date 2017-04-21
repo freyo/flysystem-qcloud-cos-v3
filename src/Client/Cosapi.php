@@ -766,7 +766,7 @@ class Cosapi
      */
     private static function generateResUrl($bucketName, $dstPath)
     {
-        return Conf::API_COSAPI_END_POINT.Conf::getAppId().'/'.$bucketName.'/'.$dstPath;
+        return Conf::API_COSAPI_END_POINT.Conf::getAppId().'/'.$bucketName.$dstPath;
     }
 
     /*
