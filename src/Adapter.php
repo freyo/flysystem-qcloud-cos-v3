@@ -66,7 +66,7 @@ class Adapter extends AbstractAdapter
      */
     public function write($path, $contents, Config $config)
     {
-        $tmpfname = $this->createTempFile($contents);
+        $tmpfname = $this->writeTempFile($contents);
 
         try {
             $response = $this->normalizeResponse(
@@ -74,8 +74,6 @@ class Adapter extends AbstractAdapter
             );
 
             $this->deleteTempFile($tmpfname);
-
-            $this->setContentType($path, $contents);
         } catch (RuntimeException $exception) {
             $this->deleteTempFile($tmpfname);
 
@@ -100,11 +98,17 @@ class Adapter extends AbstractAdapter
     {
         $uri = stream_get_meta_data($resource)['uri'];
 
-        $response = $this->normalizeResponse(
-            Cosapi::upload($this->getBucket(), $uri, $path)
-        );
+        try {
+            $response = $this->normalizeResponse(
+                Cosapi::upload($this->getBucket(), $uri, $path)
+            );
+        } catch (RuntimeException $exception) {
+            if ($exception->getCode() == -4018) {
+                return $this->getMetadata($path);
+            }
 
-        $this->setContentType($path, stream_get_contents($resource));
+            throw $exception;
+        }
 
         return $response;
     }
@@ -219,7 +223,7 @@ class Adapter extends AbstractAdapter
     public function has($path)
     {
         try {
-            $this->normalizeResponse($this->getMetadata($path));
+            $this->getMetadata($path);
         } catch (RuntimeException $exception) {
             return false;
         }
@@ -343,7 +347,7 @@ class Adapter extends AbstractAdapter
      *
      * @return bool|string
      */
-    private function createTempFile($content)
+    private function writeTempFile($content)
     {
         $tmpfname = tempnam('/tmp', 'dir');
 
