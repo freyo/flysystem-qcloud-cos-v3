@@ -70,7 +70,7 @@ return [
             'app_id'     => env('COSV3_APP_ID'),
             'secret_id'  => env('COSV3_SECRET_ID'),
             'secret_key' => env('COSV3_SECRET_KEY'),
-            'timeout'    => env('COSV3_PROTOCOL', 60),
+            'timeout'    => env('COSV3_TIMEOUT', 60),
             'bucket'     => env('COSV3_BUCKET'),
         ],
 
