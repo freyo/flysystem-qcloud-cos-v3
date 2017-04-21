@@ -67,7 +67,7 @@ return [
             'driver'     => 'cosv3',
             'protocol'   => env('COSV3_PROTOCOL', 'http'),
             'domain'     => env('COSV3_DOMAIN'),
-            'app_id'     => env('COSV3_APPID'),
+            'app_id'     => env('COSV3_APP_ID'),
             'secret_id'  => env('COSV3_SECRET_ID'),
             'secret_key' => env('COSV3_SECRET_KEY'),
             'timeout'    => env('COSV3_PROTOCOL', 60),

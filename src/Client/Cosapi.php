@@ -1,6 +1,6 @@
 <?php
 
-namespace Freyo\LaravelQcloudCosV3\Qcloud;
+namespace Freyo\Flysystem\QcloudCOSv3\Client;
 
 date_default_timezone_set('PRC');
 class Cosapi
@@ -766,7 +766,7 @@ class Cosapi
      */
     private static function generateResUrl($bucketName, $dstPath)
     {
-        return Conf::API_COSAPI_END_POINT.Conf::getAppId().'/'.$bucketName.'/'.$dstPath;
+        return Conf::API_COSAPI_END_POINT.Conf::getAppId().'/'.$bucketName.$dstPath;
     }
 
     /*
