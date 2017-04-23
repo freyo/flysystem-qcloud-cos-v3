@@ -46,6 +46,46 @@ if you have used COS before October 2016, [v3](https://packagist.org/packages/fr
   $adapter = new Adapter($config);
   $filesystem = new Filesystem($adapter);
   ```
+  
+### API
+
+```php
+bool $flysystem->write('file.md', 'contents');
+
+bool $flysystem->writeStream('file.md', fopen('path/to/your/local/file.jpg', 'r'));
+
+bool $flysystem->update('file.md', 'new contents');
+
+bool $flysystem->updateStram('file.md', fopen('path/to/your/local/file.jpg', 'r'));
+
+bool $flysystem->rename('foo.md', 'bar.md');
+
+bool $flysystem->copy('foo.md', 'foo2.md');
+
+bool $flysystem->delete('file.md');
+
+bool $flysystem->has('file.md');
+
+string|false $flysystem->read('file.md');
+
+array $flysystem->listContents();
+
+array $flysystem->getMetadata('file.md');
+
+int $flysystem->getSize('file.md');
+
+string $flysystem->getUrl('file.md'); 
+
+string $flysystem->getMimetype('file.md');
+
+int $flysystem->getTimestamp('file.md');
+
+string $flysystem->getVisibility('file.md');
+
+bool $flysystem->setVisibility('file.md', 'public'); //or 'private'
+```
+
+[Full API documentation.](http://flysystem.thephpleague.com/api/)
 
 ## Use in Laravel
 
@@ -71,3 +111,35 @@ if you have used COS before October 2016, [v3](https://packagist.org/packages/fr
       ],
   ],
   ```
+### Usage
+
+```php
+$disk = Storage::disk('cosv3');
+
+// create a file
+$disk->put('avatars/1', $fileContents);
+
+// check if a file exists
+$exists = $disk->has('file.jpg');
+
+// get timestamp
+$time = $disk->lastModified('file1.jpg');
+
+// copy a file
+$disk->copy('old/file1.jpg', 'new/file1.jpg');
+
+// move a file
+$disk->move('old/file1.jpg', 'new/file1.jpg');
+
+// get file contents
+$contents = $disk->read('folder/my_file.txt');
+
+// get url
+$url = $disk->url('new/file1.jpg');
+
+// create a file from remote(plugin support)
+$disk->putRemoteFile('avatars/1', 'http://example.org/avatar.jpg');
+$disk->putRemoteFileAs('avatars/1', 'http://example.org/avatar.jpg', 'file1.jpg');
+```
+
+[Full API documentation.](https://laravel.com/api/5.4/Illuminate/Contracts/Filesystem/Cloud.html)
