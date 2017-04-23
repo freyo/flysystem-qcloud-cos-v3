@@ -75,8 +75,8 @@ class Adapter extends AbstractAdapter
             );
 
             $this->deleteTempFile($tmpfname);
-			
-			$this->setContentType($path, $contents);
+
+            $this->setContentType($path, $contents);
         } catch (RuntimeException $exception) {
             $this->deleteTempFile($tmpfname);
 
@@ -105,8 +105,8 @@ class Adapter extends AbstractAdapter
             $response = $this->normalizeResponse(
                 Cosapi::upload($this->getBucket(), $uri, $path)
             );
-			
-			$this->setContentType($path, stream_get_contents($resource));
+
+            $this->setContentType($path, stream_get_contents($resource));
         } catch (RuntimeException $exception) {
             if ($exception->getCode() == -4018) {
                 return $this->getMetadata($path);
@@ -135,8 +135,8 @@ class Adapter extends AbstractAdapter
             );
 
             $this->deleteTempFile($tmpfname);
-			
-			$this->setContentType($path, $contents);
+
+            $this->setContentType($path, $contents);
         } catch (RuntimeException $exception) {
             $this->deleteTempFile($tmpfname);
 
@@ -165,8 +165,8 @@ class Adapter extends AbstractAdapter
             $response = $this->normalizeResponse(
                 Cosapi::upload($this->getBucket(), $uri, $path, $path, null, null, 0)
             );
-			
-			$this->setContentType($path, stream_get_contents($resource));
+
+            $this->setContentType($path, stream_get_contents($resource));
         } catch (RuntimeException $exception) {
             if ($exception->getCode() == -4018) {
                 return $this->getMetadata($path);
@@ -199,8 +199,8 @@ class Adapter extends AbstractAdapter
      */
     public function copy($path, $newpath)
     {
-		$resource = $this->read($path);
-		
+        $resource = $this->read($path);
+
         return $this->update($newpath, $resource['contents'], new Config());
     }
 
