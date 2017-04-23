@@ -214,6 +214,9 @@ class Cosapi
      */
     public static function move($bucketName, $srcPath, $dstPath, $toOverWrite = 0)
     {
+        $srcPath = self::normalizerPath($srcPath);
+        $dstPath = self::normalizerPath($dstPath);
+		
         $srcPath = self::cosUrlEncode($srcPath);
         $url = self::generateResUrl($bucketName, $srcPath);
         $sign = Auth::appSign_once($srcPath, $bucketName);
