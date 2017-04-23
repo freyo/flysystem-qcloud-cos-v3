@@ -216,7 +216,7 @@ class Cosapi
     {
         $srcPath = self::normalizerPath($srcPath);
         $dstPath = self::normalizerPath($dstPath);
-		
+
         $srcPath = self::cosUrlEncode($srcPath);
         $url = self::generateResUrl($bucketName, $srcPath);
         $sign = Auth::appSign_once($srcPath, $bucketName);
