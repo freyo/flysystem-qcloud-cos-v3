@@ -284,12 +284,10 @@ class Adapter extends AbstractAdapter
     public function has($path)
     {
         try {
-            $this->getMetadata($path);
+            return (bool) $this->getMetadata($path);
         } catch (RuntimeException $exception) {
             return false;
         }
-
-        return true;
     }
 
     /**
@@ -340,67 +338,69 @@ class Adapter extends AbstractAdapter
     /**
      * @param string $path
      *
-     * @return array
+     * @return array|bool
      */
     public function getSize($path)
     {
         $stat = $this->getMetadata($path);
 
-        if ($stat) {
+        if (isset($stat['filesize'])) {
             return ['size' => $stat['filesize']];
         }
 
-        return ['size' => 0];
+        return false;
     }
 
     /**
      * @param string $path
      *
-     * @return array
+     * @return array|bool
      */
     public function getMimetype($path)
     {
         $stat = $this->getMetadata($path);
 
-        if ($stat && !empty($stat['custom_headers']) && !empty($stat['custom_headers']['Content-Type'])) {
+        if (isset($stat['custom_headers']['Content-Type'])) {
             return ['mimetype' => $stat['custom_headers']['Content-Type']];
         }
 
-        return ['mimetype' => ''];
+        return false;
     }
 
     /**
      * @param string $path
      *
-     * @return array
+     * @return array|bool
      */
     public function getTimestamp($path)
     {
         $stat = $this->getMetadata($path);
 
-        if ($stat) {
+        if (isset($stat['ctime'])) {
             return ['timestamp' => $stat['ctime']];
         }
 
-        return ['timestamp' => 0];
+        return false;
     }
 
     /**
      * @param string $path
      *
-     * @return array
+     * @return array|bool
      */
     public function getVisibility($path)
     {
         $stat = $this->getMetadata($path);
 
-        $visibility = AdapterInterface::VISIBILITY_PRIVATE;
-
-        if ($stat && $stat['authority'] === 'eWPrivateRPublic') {
-            $visibility = AdapterInterface::VISIBILITY_PUBLIC;
+        if (isset($stat['authority']) && $stat['authority'] === 'eWPrivateRPublic') {
+            return ['visibility' => AdapterInterface::VISIBILITY_PUBLIC];
         }
 
-        return ['visibility' => $visibility];
+        if (isset($stat['authority']) && $stat['authority'] === 'eWRPrivate') {
+            return ['visibility' => AdapterInterface::VISIBILITY_PRIVATE];
+        }
+
+        return false;
     }
 
     /**
