@@ -2,23 +2,23 @@
 
 namespace Freyo\Flysystem\QcloudCOSv3\Tests;
 
+use Freyo\Flysystem\QcloudCOSv3\Adapter;
 use League\Flysystem\Config;
 use PHPUnit\Framework\TestCase;
-use Freyo\Flysystem\QcloudCOSv3\Adapter;
 
 class AdapterTest extends TestCase
 {
     public function Provider()
     {
         $config = [
-            'protocol' => 'http',
-            'domain' => 'your-domain',
-            'app_id' => 'your-app-id',
-            'secret_id' => 'your-secret-id',
+            'protocol'   => 'http',
+            'domain'     => 'your-domain',
+            'app_id'     => 'your-app-id',
+            'secret_id'  => 'your-secret-id',
             'secret_key' => 'your-secret-key',
-            'timeout' => 60,
-            'bucket' => 'your-bucket-name',
-            'debug' => true,
+            'timeout'    => 60,
+            'bucket'     => 'your-bucket-name',
+            'debug'      => true,
         ];
 
         $adapter = new Adapter($config);
@@ -44,16 +44,16 @@ class AdapterTest extends TestCase
     public function testWriteStream($adapter)
     {
         $temp = tmpfile();
-        fwrite($temp, "writing to tempfile");
+        fwrite($temp, 'writing to tempfile');
         $this->assertTrue((bool) $adapter->writeStream('foo/bar.md', $temp, new Config(['insertOnly' => 0])));
         fclose($temp);
-        
+
         $temp = tmpfile();
         fwrite($temp, uniqid());
         $this->assertFalse((bool) $adapter->writeStream('foo/bar.md', $temp, new Config(['insertOnly' => 1])));
         fclose($temp);
     }
-    
+
     /**
      * @dataProvider Provider
      */
@@ -62,7 +62,7 @@ class AdapterTest extends TestCase
         //$this->assertTrue((bool)$adapter->update('foo/bar.md', uniqid(), new Config(['insertOnly' => 0])));
         //$this->assertFalse((bool)$adapter->update('foo/bar.md', uniqid(), new Config(['insertOnly' => 1])));
     }
-    
+
     /**
      * @dataProvider Provider
      * @expectedException \Freyo\Flysystem\QcloudCOSv3\Exceptions\RuntimeException
@@ -70,10 +70,10 @@ class AdapterTest extends TestCase
     public function testUpdateStream($adapter)
     {
         $temp = tmpfile();
-        fwrite($temp, "writing to tempfile");
+        fwrite($temp, 'writing to tempfile');
         $this->assertTrue((bool) $adapter->updateStream('foo/bar.md', $temp, new Config(['insertOnly' => 0])));
         fclose($temp);
-        
+
         $temp = tmpfile();
         fwrite($temp, uniqid());
         $this->assertFalse((bool) $adapter->updateStream('foo/bar.md', $temp, new Config(['insertOnly' => 1])));
@@ -89,7 +89,7 @@ class AdapterTest extends TestCase
         $this->assertTrue($adapter->rename('foo/foo.md', 'foo/rename.md'));
         $this->assertFalse($adapter->rename('foo/notexist.md', 'foo/notexist.md'));
     }
-    
+
     /**
      * @dataProvider Provider
      */
@@ -108,7 +108,7 @@ class AdapterTest extends TestCase
         $this->assertTrue($adapter->delete('foo/rename.md'));
         $this->assertFalse($adapter->delete('foo/notexist.md'));
     }
-    
+
     /**
      * @dataProvider Provider
      * @expectedException \Freyo\Flysystem\QcloudCOSv3\Exceptions\RuntimeException
@@ -146,7 +146,7 @@ class AdapterTest extends TestCase
         //$this->assertTrue($adapter->has('foo/bar.md'));
         $this->assertFalse($adapter->has('foo/noexist.md'));
     }
-    
+
     /**
      * @dataProvider Provider
      */
@@ -203,7 +203,7 @@ class AdapterTest extends TestCase
     {
         $this->assertArrayHasKey('size', $adapter->getSize('foo/bar.md'));
     }
-    
+
     /**
      * @dataProvider Provider
      * @expectedException \Freyo\Flysystem\QcloudCOSv3\Exceptions\RuntimeException

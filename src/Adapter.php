@@ -37,7 +37,7 @@ class Adapter extends AbstractAdapter
         Conf::setSecretKey($config['secret_key']);
 
         $this->bucket = $config['bucket'];
-        $this->debug  = $config['debug'];
+        $this->debug = $config['debug'];
 
         $this->setPathPrefix($config['protocol'].'://'.$config['domain'].'/');
 
@@ -78,7 +78,7 @@ class Adapter extends AbstractAdapter
         if (false === $tmpfname) {
             return false;
         }
-        
+
         try {
             $response = Cosapi::upload($this->getBucket(), $tmpfname, $path,
                                         null, null, $config->get('insertOnly', 1));
@@ -144,7 +144,7 @@ class Adapter extends AbstractAdapter
         if (false === $tmpfname) {
             return false;
         }
-        
+
         try {
             $response = Cosapi::upload($this->getBucket(), $tmpfname, $path,
                                         null, null, $config->get('insertOnly', 0));
@@ -428,8 +428,8 @@ class Adapter extends AbstractAdapter
     {
         if (false === $tmpfname) {
             return false;
-        }        
-        
+        }
+
         return unlink($tmpfname);
     }
 
