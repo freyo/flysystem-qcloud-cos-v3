@@ -45,12 +45,12 @@ class AdapterTest extends TestCase
     {
         $temp = tmpfile();
         fwrite($temp, "writing to tempfile");
-        $this->assertTrue((bool)$adapter->writeStream('foo/bar.md', $temp, new Config(['insertOnly' => 0])));
+        $this->assertTrue((bool) $adapter->writeStream('foo/bar.md', $temp, new Config(['insertOnly' => 0])));
         fclose($temp);
         
         $temp = tmpfile();
         fwrite($temp, uniqid());
-        $this->assertFalse((bool)$adapter->writeStream('foo/bar.md', $temp, new Config(['insertOnly' => 1])));
+        $this->assertFalse((bool) $adapter->writeStream('foo/bar.md', $temp, new Config(['insertOnly' => 1])));
         fclose($temp);
     }
     
@@ -71,12 +71,12 @@ class AdapterTest extends TestCase
     {
         $temp = tmpfile();
         fwrite($temp, "writing to tempfile");
-        $this->assertTrue((bool)$adapter->updateStream('foo/bar.md', $temp, new Config(['insertOnly' => 0])));
+        $this->assertTrue((bool) $adapter->updateStream('foo/bar.md', $temp, new Config(['insertOnly' => 0])));
         fclose($temp);
         
         $temp = tmpfile();
         fwrite($temp, uniqid());
-        $this->assertFalse((bool)$adapter->updateStream('foo/bar.md', $temp, new Config(['insertOnly' => 1])));
+        $this->assertFalse((bool) $adapter->updateStream('foo/bar.md', $temp, new Config(['insertOnly' => 1])));
         fclose($temp);
     }
 
@@ -115,8 +115,8 @@ class AdapterTest extends TestCase
      */
     public function testCreateDir($adapter)
     {
-        $this->assertTrue((bool)$adapter->createDir('bar', new Config()));
-        $this->assertFalse((bool)$adapter->createDir('bar', new Config()));
+        $this->assertTrue((bool) $adapter->createDir('bar', new Config()));
+        $this->assertFalse((bool) $adapter->createDir('bar', new Config()));
     }
 
     /**
@@ -161,7 +161,7 @@ class AdapterTest extends TestCase
     public function testGetUrl($adapter, $config)
     {
         $this->assertSame(
-            $config['protocol'] . '://' . $config['domain'] . '/foo/bar.md',
+            $config['protocol'].'://'.$config['domain'].'/foo/bar.md',
             $adapter->getUrl('foo/bar.md')
         );
     }

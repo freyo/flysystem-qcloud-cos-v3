@@ -39,13 +39,13 @@ class Adapter extends AbstractAdapter
         $this->bucket = $config['bucket'];
         $this->debug  = $config['debug'];
 
-        $this->setPathPrefix($config['protocol'] . '://' . $config['domain'] . '/');
+        $this->setPathPrefix($config['protocol'].'://'.$config['domain'].'/');
 
         Cosapi::setTimeout($config['timeout']);
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getBucket()
     {
@@ -53,7 +53,7 @@ class Adapter extends AbstractAdapter
     }
 
     /**
-     * @param $path
+     * @param string $path
      *
      * @return string
      */
@@ -77,7 +77,7 @@ class Adapter extends AbstractAdapter
 
         try {
             $response = Cosapi::upload($this->getBucket(), $tmpfname, $path,
-                                       null, null, $config->get('insertOnly', 1));
+                                        null, null, $config->get('insertOnly', 1));
 
             $this->deleteTempFile($tmpfname);
 
@@ -111,7 +111,7 @@ class Adapter extends AbstractAdapter
         $uri = stream_get_meta_data($resource)['uri'];
 
         $response = Cosapi::upload($this->getBucket(), $uri, $path,
-                                   null, null, $config->get('insertOnly', 1));
+                                    null, null, $config->get('insertOnly', 1));
 
         $response = $this->normalizeResponse($response);
 
@@ -139,7 +139,7 @@ class Adapter extends AbstractAdapter
 
         try {
             $response = Cosapi::upload($this->getBucket(), $tmpfname, $path,
-                                       null, null, $config->get('insertOnly', 0));
+                                        null, null, $config->get('insertOnly', 0));
 
             $this->deleteTempFile($tmpfname);
 
@@ -173,7 +173,7 @@ class Adapter extends AbstractAdapter
         $uri = stream_get_meta_data($resource)['uri'];
 
         $response = Cosapi::upload($this->getBucket(), $uri, $path,
-                                   null, null, $config->get('insertOnly', 0));
+                                    null, null, $config->get('insertOnly', 0));
 
         $response = $this->normalizeResponse($response);
 
@@ -287,7 +287,7 @@ class Adapter extends AbstractAdapter
     /**
      * @param string $path
      *
-     * @return array
+     * @return string
      */
     public function read($path)
     {

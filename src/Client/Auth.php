@@ -31,8 +31,8 @@ class Auth
     /**
      * 生成单次有效签名函数（用于删除和更新指定fileId资源，使用一次即失效）.
      *
-     * @param string $fileId     文件路径，以 /{$appId}/{$bucketName} 开头
      * @param string $bucketName 文件所在bucket
+     * @param string $path
      *
      * @return string 签名
      */
