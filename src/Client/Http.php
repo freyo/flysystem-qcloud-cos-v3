@@ -78,8 +78,8 @@ class Http
                 curl_setopt(self::$_curlHandler, CURLOPT_SSLVERSION, 4);
             }
         } elseif ($ssl) {
-            curl_setopt(self::$_curlHandler, CURLOPT_SSL_VERIFYPEER, false);   //true any ca
-            curl_setopt(self::$_curlHandler, CURLOPT_SSL_VERIFYHOST, 1);       //check only host
+            curl_setopt(self::$_curlHandler, CURLOPT_SSL_VERIFYPEER, false); //true any ca
+            curl_setopt(self::$_curlHandler, CURLOPT_SSL_VERIFYHOST, 1); //check only host
             if (isset($rq['ssl_version'])) {
                 curl_setopt(self::$_curlHandler, CURLOPT_SSLVERSION, $rq['ssl_version']);
             } else {
