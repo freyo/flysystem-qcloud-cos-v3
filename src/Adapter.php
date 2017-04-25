@@ -69,7 +69,7 @@ class Adapter extends AbstractAdapter
      *
      * @throws RuntimeException
      *
-     * @return array|false
+     * @return array|bool
      */
     public function write($path, $contents, Config $config)
     {
@@ -104,7 +104,7 @@ class Adapter extends AbstractAdapter
      *
      * @throws RuntimeException
      *
-     * @return array|false
+     * @return array|bool
      */
     public function writeStream($path, $resource, Config $config)
     {
@@ -131,7 +131,7 @@ class Adapter extends AbstractAdapter
      *
      * @throws RuntimeException
      *
-     * @return array|false
+     * @return array|bool
      */
     public function update($path, $contents, Config $config)
     {
@@ -166,7 +166,7 @@ class Adapter extends AbstractAdapter
      *
      * @throws RuntimeException
      *
-     * @return array|false
+     * @return array|bool
      */
     public function updateStream($path, $resource, Config $config)
     {
@@ -257,7 +257,7 @@ class Adapter extends AbstractAdapter
      * @param string $path
      * @param string $visibility
      *
-     * @return mixed
+     * @return bool
      */
     public function setVisibility($path, $visibility)
     {
@@ -396,7 +396,7 @@ class Adapter extends AbstractAdapter
     }
 
     /**
-     * @param $content
+     * @param string $content
      *
      * @return bool|string
      */
@@ -412,18 +412,22 @@ class Adapter extends AbstractAdapter
     }
 
     /**
-     * @param $tmpfname
+     * @param string|bool $tmpfname
      *
      * @return bool
      */
     private function deleteTempFile($tmpfname)
     {
+        if (false === $tmpfname) {
+            return false;
+        }
+        
         return unlink($tmpfname);
     }
 
     /**
-     * @param $path
-     * @param $content
+     * @param string $path
+     * @param string $content
      *
      * @return bool
      */
