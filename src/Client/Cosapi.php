@@ -53,7 +53,7 @@ class Cosapi
      * @return [type] [description]
      */
     public static function upload($bucketName, $srcPath, $dstPath,
-               $bizAttr = null, $slicesize = null, $insertOnly = null)
+                $bizAttr = null, $slicesize = null, $insertOnly = null)
     {
         if (!file_exists($srcPath)) {
             return [
@@ -160,7 +160,7 @@ class Cosapi
         return self::updateBase($bucketName, $path, $bizAttr);
     }
 
-   /*
+    /*
      * 查询目录信息
      * @param  string  $bucketName bucket名称
      * @param  string  $path       目录路径
@@ -197,8 +197,12 @@ class Cosapi
      * 'Content-Language' => '*'
      * 'x-cos-meta-自定义内容' => '*'
      */
+
+    /**
+     * @param string $authority
+     */
     public static function update($bucketName, $path,
-                  $bizAttr = null, $authority = null, $customer_headers_array = null)
+                    $bizAttr = null, $authority = null, $customer_headers_array = null)
     {
         $path = self::normalizerPath($path);
 
@@ -286,9 +290,9 @@ class Cosapi
 
         if (filesize($srcPath) >= self::MAX_UNSLICE_FILE_SIZE) {
             return [
-                   'code'    => self::COSAPI_PARAMS_ERROR,
-                   'message' => 'file '.$srcPath.' larger then 20M, please use upload_slice interface',
-                   'data'    => [], ];
+                    'code'    => self::COSAPI_PARAMS_ERROR,
+                    'message' => 'file '.$srcPath.' larger then 20M, please use upload_slice interface',
+                    'data'    => [], ];
         }
 
         $expired = time() + self::EXPIRED_SECONDS;
@@ -627,7 +631,7 @@ class Cosapi
      * 'x-cos-meta-自定义内容' => '*'
      */
     private static function updateBase($bucketName, $path,
-                  $bizAttr = null, $authority = null, $custom_headers_array = null)
+                    $bizAttr = null, $authority = null, $custom_headers_array = null)
     {
         $path = self::cosUrlEncode($path);
         $expired = time() + self::EXPIRED_SECONDS;
@@ -869,8 +873,8 @@ class Cosapi
     /**
      * 判断pattern值是否正确.
      *
-     * @param string $authority
      *
+     * @param string $pattern
      * @return [type] bool
      */
     private static function isPatternValid($pattern)
