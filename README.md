@@ -44,6 +44,7 @@ if you have used COS before October 2016, [v3](https://packagist.org/packages/fr
       'secret_key' => 'your-secret-key',
       'timeout' => 60,
       'bucket' => 'your-bucket-name',
+      'debug' => false,
   ];
 
   $adapter = new Adapter($config);
@@ -111,6 +112,7 @@ bool $flysystem->setVisibility('file.md', 'public'); //or 'private'
           'secret_key' => env('COSV3_SECRET_KEY'),
           'timeout' => env('COSV3_TIMEOUT', 60),
           'bucket' => env('COSV3_BUCKET'),
+          'debug' => env('COSV4_DEBUG', false),
       ],
   ],
   ```

@@ -30,9 +30,9 @@ class ServiceProvider extends LaravelServiceProvider
         });
 
         Storage::disk('cosv3')
-               ->addPlugin(new PutRemoteFile())
-               ->addPlugin(new PutRemoteFileAs())
-               ->addPlugin(new GetUrl());
+                ->addPlugin(new PutRemoteFile())
+                ->addPlugin(new PutRemoteFileAs())
+                ->addPlugin(new GetUrl());
     }
 
     /**
