@@ -73,11 +73,11 @@ class Cosapi
     }
 
     /**
-     * 创建目录
+     * 创建目录.
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $path       目录路径
-     * @param  string $bizAttr    目录属性
+     * @param string $bucketName bucket名称
+     * @param string $path       目录路径
+     * @param string $bizAttr    目录属性
      *
      * @return array
      */
@@ -111,14 +111,14 @@ class Cosapi
     }
 
     /**
-     * 目录列表
+     * 目录列表.
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $path       目录路径，sdk会补齐末尾的 '/'
-     * @param  int    $num        拉取的总数
-     * @param  string $pattern    eListBoth,ListDirOnly,eListFileOnly  默认both
-     * @param  int    $order      默认正序(=0), 填1为反序,
-     * @param  string $context     透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
+     * @param string $bucketName bucket名称
+     * @param string $path       目录路径，sdk会补齐末尾的 '/'
+     * @param int    $num        拉取的总数
+     * @param string $pattern    eListBoth,ListDirOnly,eListFileOnly  默认both
+     * @param int    $order      默认正序(=0), 填1为反序,
+     * @param string $context    透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
      *
      * @return array
      */
@@ -134,14 +134,14 @@ class Cosapi
     }
 
     /**
-     * 目录列表(前缀搜索)
+     * 目录列表(前缀搜索).
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $prefix     列出含此前缀的所有文件
-     * @param  int    $num        拉取的总数
-     * @param  string $pattern    eListBoth(默认),ListDirOnly,eListFileOnly
-     * @param  int    $order      默认正序(=0), 填1为反序,
-     * @param  string $context     透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
+     * @param string $bucketName bucket名称
+     * @param string $prefix     列出含此前缀的所有文件
+     * @param int    $num        拉取的总数
+     * @param string $pattern    eListBoth(默认),ListDirOnly,eListFileOnly
+     * @param int    $order      默认正序(=0), 填1为反序,
+     * @param string $context    透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
      *
      * @return array
      */
@@ -157,11 +157,11 @@ class Cosapi
     }
 
     /**
-     * 目录更新
+     * 目录更新.
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $path       文件夹路径,SDK会补齐末尾的 '/'
-     * @param  string $bizAttr    目录属性
+     * @param string $bucketName bucket名称
+     * @param string $path       文件夹路径,SDK会补齐末尾的 '/'
+     * @param string $bizAttr    目录属性
      *
      * @return array
      */
@@ -173,10 +173,10 @@ class Cosapi
     }
 
     /**
-     * 查询目录信息
+     * 查询目录信息.
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $path       目录路径
+     * @param string $bucketName bucket名称
+     * @param string $path       目录路径
      *
      * @return array
      */
@@ -188,11 +188,11 @@ class Cosapi
     }
 
     /**
-     * 删除目录
+     * 删除目录.
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $path       目录路径
-     *                            注意不能删除bucket下根目录/
+     * @param string $bucketName bucket名称
+     * @param string $path       目录路径
+     *                           注意不能删除bucket下根目录/
      *
      * @return array
      */
@@ -204,18 +204,18 @@ class Cosapi
     }
 
     /**
-     * 更新文件
+     * 更新文件.
      *
-     * @param  string $bucketName             bucket名称
-     * @param  string $path                   文件路径
-     * @param  null   $bizAttr
-     * @param  string $authority              :  eInvalid(继承Bucket的读写权限)/eWRPrivate(私有读写)/eWPrivateRPublic(公有读私有写)
-     * @param  array  $customer_headers_array 携带的用户自定义头域,包括
-     *                                        'Cache-Control' => '*'
-     *                                        'Content-Type' => '*'
-     *                                        'Content-Disposition' => '*'
-     *                                        'Content-Language' => '*'
-     *                                        'x-cos-meta-自定义内容' => '*'
+     * @param string $bucketName             bucket名称
+     * @param string $path                   文件路径
+     * @param null   $bizAttr
+     * @param string $authority              :  eInvalid(继承Bucket的读写权限)/eWRPrivate(私有读写)/eWPrivateRPublic(公有读私有写)
+     * @param array  $customer_headers_array 携带的用户自定义头域,包括
+     *                                       'Cache-Control' => '*'
+     *                                       'Content-Type' => '*'
+     *                                       'Content-Disposition' => '*'
+     *                                       'Content-Language' => '*'
+     *                                       'x-cos-meta-自定义内容' => '*'
      *
      * @return array
      */
@@ -228,12 +228,12 @@ class Cosapi
     }
 
     /**
-     * 移动(重命名)文件
+     * 移动(重命名)文件.
      *
-     * @param  string $bucketName  bucket名称
-     * @param  string $srcPath     源文件路径
-     * @param  string $dstPath     目的文件名(可以是单独文件名也可以是带目录的文件名)
-     * @param  int    $toOverWrite 是否覆盖(当目的文件名已经存在同名文件时是否覆盖)
+     * @param string $bucketName  bucket名称
+     * @param string $srcPath     源文件路径
+     * @param string $dstPath     目的文件名(可以是单独文件名也可以是带目录的文件名)
+     * @param int    $toOverWrite 是否覆盖(当目的文件名已经存在同名文件时是否覆盖)
      *
      * @return array
      */
@@ -269,10 +269,10 @@ class Cosapi
     }
 
     /**
-     * 查询文件信息
+     * 查询文件信息.
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $path       文件路径
+     * @param string $bucketName bucket名称
+     * @param string $path       文件路径
      *
      * @return array
      */
@@ -284,10 +284,10 @@ class Cosapi
     }
 
     /**
-     * 删除文件
+     * 删除文件.
      *
-     * @param  string $bucketName
-     * @param  string $path 文件路径
+     * @param string $bucketName
+     * @param string $path       文件路径
      *
      * @return array
      */
@@ -580,14 +580,14 @@ class Cosapi
     }
 
     /**
-     * 内部公共函数
+     * 内部公共函数.
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $path       文件夹路径
-     * @param  int    $num        拉取的总数
-     * @param  string $pattern    eListBoth(默认),ListDirOnly,eListFileOnly
-     * @param  int    $order      默认正序(=0), 填1为反序,
-     * @param  string $context    在翻页查询时候用到
+     * @param string $bucketName bucket名称
+     * @param string $path       文件夹路径
+     * @param int    $num        拉取的总数
+     * @param string $pattern    eListBoth(默认),ListDirOnly,eListFileOnly
+     * @param int    $order      默认正序(=0), 填1为反序,
+     * @param string $context    在翻页查询时候用到
      *
      * @return array
      */
@@ -647,18 +647,18 @@ class Cosapi
     }
 
     /**
-     * 内部公共方法(更新文件和更新文件夹)
+     * 内部公共方法(更新文件和更新文件夹).
      *
-     * @param  string $bucketName             bucket名称
-     * @param  string $path                   路径
-     * @param  string $bizAttr                文件/目录属性
-     * @param  string $authority              :  eInvalid/eWRPrivate(私有)/eWPrivateRPublic(公有读写)
-     * @param  array  $custom_headers_array 携带的用户自定义头域,包括
-     *                                        'Cache-Control' => '*'
-     *                                        'Content-Type' => '*'
-     *                                        'Content-Disposition' => '*'
-     *                                        'Content-Language' => '*'
-     *                                        'x-cos-meta-自定义内容' => '*'
+     * @param string $bucketName           bucket名称
+     * @param string $path                 路径
+     * @param string $bizAttr              文件/目录属性
+     * @param string $authority            :  eInvalid/eWRPrivate(私有)/eWPrivateRPublic(公有读写)
+     * @param array  $custom_headers_array 携带的用户自定义头域,包括
+     *                                     'Cache-Control' => '*'
+     *                                     'Content-Type' => '*'
+     *                                     'Content-Disposition' => '*'
+     *                                     'Content-Language' => '*'
+     *                                     'x-cos-meta-自定义内容' => '*'
      *
      * @return array|mixed
      */
@@ -720,10 +720,10 @@ class Cosapi
     }
 
     /**
-     * 内部方法
+     * 内部方法.
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $path       文件/目录路径
+     * @param string $bucketName bucket名称
+     * @param string $path       文件/目录路径
      *
      * @return array
      */
@@ -753,10 +753,10 @@ class Cosapi
     }
 
     /**
-     * 内部私有方法
+     * 内部私有方法.
      *
-     * @param  string $bucketName bucket名称
-     * @param  string $path       文件/目录路径路径
+     * @param string $bucketName bucket名称
+     * @param string $path       文件/目录路径路径
      *
      * @return array
      */
@@ -798,7 +798,7 @@ class Cosapi
     /**
      * 内部公共方法, 路径编码
      *
-     * @param  string $path 待编码路径
+     * @param string $path 待编码路径
      *
      * @return mixed
      */
@@ -808,10 +808,10 @@ class Cosapi
     }
 
     /**
-     * 内部公共方法, 构造URL
+     * 内部公共方法, 构造URL.
      *
-     * @param  string $bucketName
-     * @param  string $dstPath
+     * @param string $bucketName
+     * @param string $dstPath
      *
      * @return string
      */
@@ -821,9 +821,9 @@ class Cosapi
     }
 
     /**
-     * 内部公共方法, 发送消息
+     * 内部公共方法, 发送消息.
      *
-     * @param  array $req
+     * @param array $req
      *
      * @return array
      */
@@ -880,10 +880,10 @@ class Cosapi
     }
 
     /**
-     * 内部方法, 规整文件路径
+     * 内部方法, 规整文件路径.
      *
-     * @param  string $path     文件路径
-     * @param  bool   $isfolder 是否为文件夹
+     * @param string $path     文件路径
+     * @param bool   $isfolder 是否为文件夹
      *
      * @return string
      */
@@ -925,6 +925,7 @@ class Cosapi
      *
      *
      * @param string $pattern
+     *
      * @return bool
      */
     private static function isPatternValid($pattern)
@@ -963,7 +964,6 @@ class Cosapi
      *
      * @param array $data
      * @param array $customer_headers_array
-     *
      */
     private static function add_customer_header(&$data, &$customer_headers_array)
     {
