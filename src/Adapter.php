@@ -75,6 +75,10 @@ class Adapter extends AbstractAdapter
     {
         $tmpfname = $this->writeTempFile($contents);
 
+        if (false === $tmpfname) {
+            return false;
+        }
+        
         try {
             $response = Cosapi::upload($this->getBucket(), $tmpfname, $path,
                                        null, null, $config->get('insertOnly', 1));
@@ -137,6 +141,10 @@ class Adapter extends AbstractAdapter
     {
         $tmpfname = $this->writeTempFile($contents);
 
+        if (false === $tmpfname) {
+            return false;
+        }
+        
         try {
             $response = Cosapi::upload($this->getBucket(), $tmpfname, $path,
                                        null, null, $config->get('insertOnly', 0));
@@ -203,7 +211,7 @@ class Adapter extends AbstractAdapter
      * @param string $path
      * @param string $newpath
      *
-     * @return bool
+     * @return array|bool
      */
     public function copy($path, $newpath)
     {
@@ -412,16 +420,12 @@ class Adapter extends AbstractAdapter
     }
 
     /**
-     * @param string|bool $tmpfname
+     * @param string $tmpfname
      *
      * @return bool
      */
     private function deleteTempFile($tmpfname)
     {
-        if (false === $tmpfname) {
-            return false;
-        }
-        
         return unlink($tmpfname);
     }
 
