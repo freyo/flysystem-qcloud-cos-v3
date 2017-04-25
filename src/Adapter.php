@@ -202,7 +202,7 @@ class Adapter extends AbstractAdapter
      */
     public function rename($path, $newpath)
     {
-        return $this->normalizeResponse(
+        return (bool) $this->normalizeResponse(
             Cosapi::move($this->getBucket(), $path, $newpath, 1)
         );
     }
@@ -211,7 +211,7 @@ class Adapter extends AbstractAdapter
      * @param string $path
      * @param string $newpath
      *
-     * @return array|bool
+     * @return bool
      */
     public function copy($path, $newpath)
     {
@@ -221,7 +221,7 @@ class Adapter extends AbstractAdapter
             return false;
         }
 
-        return $this->update($newpath, $resource['contents'], new Config());
+        return (bool) $this->update($newpath, $resource['contents'], new Config());
     }
 
     /**
@@ -231,7 +231,7 @@ class Adapter extends AbstractAdapter
      */
     public function delete($path)
     {
-        return $this->normalizeResponse(
+        return (bool) $this->normalizeResponse(
             Cosapi::delFile($this->getBucket(), $path)
         );
     }
@@ -243,7 +243,7 @@ class Adapter extends AbstractAdapter
      */
     public function deleteDir($dirname)
     {
-        return $this->normalizeResponse(
+        return (bool) $this->normalizeResponse(
             Cosapi::delFolder($this->getBucket(), $dirname)
         );
     }
@@ -252,7 +252,7 @@ class Adapter extends AbstractAdapter
      * @param string $dirname
      * @param Config $config
      *
-     * @return bool
+     * @return array|bool
      */
     public function createDir($dirname, Config $config)
     {
@@ -271,7 +271,7 @@ class Adapter extends AbstractAdapter
     {
         $visibility = $visibility === AdapterInterface::VISIBILITY_PUBLIC ? 'eWPrivateRPublic' : 'eWRPrivate';
 
-        return $this->normalizeResponse(
+        return (bool) $this->normalizeResponse(
             Cosapi::update($this->getBucket(), $path, null, $visibility)
         );
     }
@@ -420,12 +420,16 @@ class Adapter extends AbstractAdapter
     }
 
     /**
-     * @param string $tmpfname
+     * @param string|bool $tmpfname
      *
      * @return bool
      */
     private function deleteTempFile($tmpfname)
     {
+        if (false === $tmpfname) {
+            return false;
+        }        
+        
         return unlink($tmpfname);
     }
 
