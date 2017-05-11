@@ -61,7 +61,7 @@ class Cosapi
                     'message' => 'file '.$srcPath.' not exists',
                     'data'    => [], ];
         }
-        
+
         $dstPath = '/'.ltrim($dstPath, '/');
 
         //文件大于20M则使用分片传输
