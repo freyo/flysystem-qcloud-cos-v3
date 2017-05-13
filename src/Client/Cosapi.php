@@ -535,7 +535,7 @@ class Cosapi
                 return $ret;
             }
 
-            if ($ret['data']['session']) {
+            if (!empty($ret['data']['session'])) {
                 $session = $ret['data']['session'];
             }
 
