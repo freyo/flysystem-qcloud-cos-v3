@@ -396,8 +396,8 @@ class Adapter extends AbstractAdapter
     }
 
     /**
-	 * Creates a temporary file
-	 *
+     * Creates a temporary file.
+     *
      * @param string $content
      *
      * @return bool|string
@@ -409,15 +409,15 @@ class Adapter extends AbstractAdapter
         chmod($temporaryPath, 0777);
 
         file_put_contents($temporaryPath, $content);
-		
-		// The file is automatically removed when closed, or when the script ends.
-		register_shutdown_function(function() use($temporaryPath) {
-			unlink($temporaryPath);
-		});
+
+        // The file is automatically removed when closed, or when the script ends.
+        register_shutdown_function(function () use ($temporaryPath) {
+            unlink($temporaryPath);
+        });
 
         return $temporaryPath;
     }
-	
+
     /**
      * Gets a temporary file path.
      *
@@ -426,7 +426,7 @@ class Adapter extends AbstractAdapter
     protected function getTemporaryPath()
     {
         return tempnam(sys_get_temp_dir(), uniqid('entwechat', true));
-    }	
+    }
 
     /**
      * @param string $path
