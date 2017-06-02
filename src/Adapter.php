@@ -73,17 +73,15 @@ class Adapter extends AbstractAdapter
      */
     public function write($path, $contents, Config $config)
     {
-        $tmpfname = $this->writeTempFile($contents);
+        $temporaryPath = $this->createTemporaryFile($contents);
 
-        if (false === $tmpfname) {
+        if (false === $temporaryPath) {
             return false;
         }
 
         try {
-            $response = Cosapi::upload($this->getBucket(), $tmpfname, $path,
+            $response = Cosapi::upload($this->getBucket(), $temporaryPath, $path,
                                         null, null, $config->get('insertOnly', 1));
-
-            $this->deleteTempFile($tmpfname);
 
             $response = $this->normalizeResponse($response);
 
@@ -93,8 +91,6 @@ class Adapter extends AbstractAdapter
 
             $this->setContentType($path, $contents);
         } catch (RuntimeException $exception) {
-            $this->deleteTempFile($tmpfname);
-
             throw $exception;
         }
 
@@ -139,17 +135,15 @@ class Adapter extends AbstractAdapter
      */
     public function update($path, $contents, Config $config)
     {
-        $tmpfname = $this->writeTempFile($contents);
+        $temporaryPath = $this->createTemporaryFile($contents);
 
-        if (false === $tmpfname) {
+        if (false === $temporaryPath) {
             return false;
         }
 
         try {
-            $response = Cosapi::upload($this->getBucket(), $tmpfname, $path,
+            $response = Cosapi::upload($this->getBucket(), $temporaryPath, $path,
                                         null, null, $config->get('insertOnly', 0));
-
-            $this->deleteTempFile($tmpfname);
 
             $response = $this->normalizeResponse($response);
 
@@ -159,8 +153,6 @@ class Adapter extends AbstractAdapter
 
             $this->setContentType($path, $contents);
         } catch (RuntimeException $exception) {
-            $this->deleteTempFile($tmpfname);
-
             throw $exception;
         }
 
@@ -404,34 +396,37 @@ class Adapter extends AbstractAdapter
     }
 
     /**
+	 * Creates a temporary file
+	 *
      * @param string $content
      *
      * @return bool|string
      */
-    private function writeTempFile($content)
+    protected function createTemporaryFile($content)
     {
-        $tmpfname = tempnam('/tmp', 'dir');
+        $temporaryPath = $this->getTemporaryPath();
 
-        chmod($tmpfname, 0777);
+        chmod($temporaryPath, 0777);
 
-        file_put_contents($tmpfname, $content);
+        file_put_contents($temporaryPath, $content);
+		
+		// The file is automatically removed when closed, or when the script ends.
+		register_shutdown_function(function() use($temporaryPath) {
+			unlink($temporaryPath);
+		});
 
-        return $tmpfname;
+        return $temporaryPath;
     }
-
+	
     /**
-     * @param string|bool $tmpfname
+     * Gets a temporary file path.
      *
-     * @return bool
+     * @return string
      */
-    private function deleteTempFile($tmpfname)
+    protected function getTemporaryPath()
     {
-        if (false === $tmpfname) {
-            return false;
-        }
-
-        return unlink($tmpfname);
-    }
+        return tempnam(sys_get_temp_dir(), uniqid('entwechat', true));
+    }	
 
     /**
      * @param string $path
