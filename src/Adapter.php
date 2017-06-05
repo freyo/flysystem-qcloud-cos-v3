@@ -80,11 +80,9 @@ class Adapter extends AbstractAdapter
 
         $response = $this->normalizeResponse($response);
 
-        if (false === $response) {
-            return false;
+        if (false !== $response) {
+            $this->setContentType($path, $contents);;
         }
-
-        $this->setContentType($path, $contents);
 
         return $response;
     }
@@ -107,11 +105,9 @@ class Adapter extends AbstractAdapter
 
         $response = $this->normalizeResponse($response);
 
-        if (false === $response) {
-            return false;
+        if (false !== $response) {
+            $this->setContentType($path, stream_get_contents($resource));
         }
-
-        $this->setContentType($path, stream_get_contents($resource));
 
         return $response;
     }
@@ -134,11 +130,9 @@ class Adapter extends AbstractAdapter
 
         $response = $this->normalizeResponse($response);
 
-        if (false === $response) {
-            return false;
+        if (false !== $response) {
+            $this->setContentType($path, $contents);
         }
-
-        $this->setContentType($path, $contents);
 
         return $response;
     }
@@ -161,11 +155,9 @@ class Adapter extends AbstractAdapter
 
         $response = $this->normalizeResponse($response);
 
-        if (false === $response) {
-            return false;
+        if (false !== $response) {
+            $this->setContentType($path, stream_get_contents($resource));
         }
-
-        $this->setContentType($path, stream_get_contents($resource));
 
         return $response;
     }
