@@ -2,7 +2,6 @@
 
 namespace Freyo\Flysystem\QcloudCOSv3\Client;
 
-date_default_timezone_set('PRC');
 class Cosapi
 {
     //计算sign签名的时间参数
@@ -22,12 +21,28 @@ class Cosapi
     //返回的错误码
     const COSAPI_PARAMS_ERROR = -1;
     const COSAPI_NETWORK_ERROR = -2;
+
     //HTTP请求超时时间
     private static $timeout = 60;
 
+    /**
+     * 获取当前指定时区的 Unix 时间戳
+     *
+     * @param string $timezone
+     *
+     * @return int
+     */
+    public static function time($timezone = 'Asia/Shanghai')
+    {
+        return date_create('now', timezone_open($timezone))->getTimestamp();
+    }
+
     /*
      * 设置HTTP请求超时时间
+     *
      * @param  int  $timeout  超时时长
+     *
+     * @return bool
      */
     public static function setTimeout($timeout = 60)
     {
@@ -87,7 +102,7 @@ class Cosapi
     {
         $path = self::normalizerPath($path, true);
         $path = self::cosUrlEncode($path);
-        $expired = time() + self::EXPIRED_SECONDS;
+        $expired = self::time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($bucketName, $path);
         $sign = Auth::appSign($expired, $bucketName);
 
@@ -323,7 +338,7 @@ class Cosapi
                     'data'    => [], ];
         }
 
-        $expired = time() + self::EXPIRED_SECONDS;
+        $expired = self::time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($bucketName, $dstPath);
         $sign = Auth::appSign($expired, $bucketName);
         $sha1 = hash_file('sha1', $srcPath);
@@ -377,7 +392,7 @@ class Cosapi
         $fileSize = filesize($srcPath);
         $dstPath = self::cosUrlEncode($dstPath);
 
-        $expired = time() + self::EXPIRED_SECONDS;
+        $expired = self::time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($bucketName, $dstPath);
         $sign = Auth::appSign($expired, $bucketName);
         $sha1 = hash_file('sha1', $srcPath);
@@ -411,7 +426,7 @@ class Cosapi
         $sliceCnt = ceil($fileSize / $sliceSize);
         // expired seconds for one slice mutiply by slice count
         // will be the expired seconds for whole file
-        $expired = time() + (self::EXPIRED_SECONDS * $sliceCnt);
+        $expired = self::time() + (self::EXPIRED_SECONDS * $sliceCnt);
         $sign = Auth::appSign($expired, $bucketName);
 
         $ret = self::upload_data(
@@ -598,7 +613,7 @@ class Cosapi
                     $pattern = 'eListBoth', $order = 0, $context = null)
     {
         $path = self::cosUrlEncode($path);
-        $expired = time() + self::EXPIRED_SECONDS;
+        $expired = self::time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($bucketName, $path);
         $sign = Auth::appSign($expired, $bucketName);
 
@@ -732,7 +747,7 @@ class Cosapi
     private static function statBase($bucketName, $path)
     {
         $path = self::cosUrlEncode($path);
-        $expired = time() + self::EXPIRED_SECONDS;
+        $expired = self::time() + self::EXPIRED_SECONDS;
         $url = self::generateResUrl($bucketName, $path);
         $sign = Auth::appSign($expired, $bucketName);
 

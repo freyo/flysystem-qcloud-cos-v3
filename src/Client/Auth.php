@@ -99,7 +99,7 @@ class Auth
             return self::AUTH_SECRET_ID_KEY_ERROR;
         }
 
-        $now = time();
+        $now = Cosapi::time();
         $rdm = rand();
         $plainText = "a=$appId&k=$secretId&e=$expired&t=$now&r=$rdm&f=$fileId&b=$bucketName";
         $bin = hash_hmac('SHA1', $plainText, $secretKey, true);
