@@ -5,8 +5,8 @@ namespace Freyo\Flysystem\QcloudCOSv3;
 use Freyo\Flysystem\QcloudCOSv3\Plugins\GetUrl;
 use Freyo\Flysystem\QcloudCOSv3\Plugins\PutRemoteFile;
 use Freyo\Flysystem\QcloudCOSv3\Plugins\PutRemoteFileAs;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Laravel\Lumen\Application as LumenApplication;
 use League\Flysystem\Filesystem;
 
 /**
@@ -21,18 +21,18 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/filesystems.php' => config_path('filesystems.php'),
-        ]);
+        if ($this->app instanceof LumenApplication) {
+            $this->app->configure('filesystems');
+        }
 
-        Storage::extend('cosv3', function ($app, $config) {
-            return new Filesystem(new Adapter($config));
-        });
-
-        Storage::disk('cosv3')
-                ->addPlugin(new PutRemoteFile())
-                ->addPlugin(new PutRemoteFileAs())
-                ->addPlugin(new GetUrl());
+        $this->app->make('filesystem')
+                  ->extend('cosv3', function ($app, $config) {
+                      $flysystem = new Filesystem(new Adapter($config));
+                      $flysystem->addPlugin(new PutRemoteFile());
+                      $flysystem->addPlugin(new PutRemoteFileAs());
+                      $flysystem->addPlugin(new GetUrl());
+                      return $flysystem;
+                  });
     }
 
     /**
